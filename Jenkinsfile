@@ -12,7 +12,9 @@ pipeline {
       steps {
         bat 'E:\\Programs\\gradle-4.10\\bin\\gradle build '
         bat 'E:\\Programs\\gradle-4.10\\bin\\gradle javadoc'
-        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle uploadArchives'
+        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle jar'
+        archiveArtifacts 'build/libs/*.jar'
+        archiveArtifacts 'build/docs/javadoc/'
       }
     }
     stage('Mail Notification') {
@@ -27,6 +29,8 @@ pipeline {
             withSonarQubeEnv('My SonarQube Server') {
               bat 'E:\\Programs\\Sonar Scanner\\sonar-scanner-3.2.0.1227-windows\\bin\\sonar-scanner'
             }
+            
+            waitForQualityGate true
 
           }
         }
@@ -38,8 +42,14 @@ pipeline {
       }
     }
     stage('Deployment') {
+      when {
+        not {
+          changeRequest target: 'master'
+        }
+
+      }
       steps {
-        echo 'Deployment'
+        bat 'gradle uploadArchives'
       }
     }
     stage('Slack Notification') {
