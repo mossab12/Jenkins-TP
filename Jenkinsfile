@@ -17,7 +17,7 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            echo 'Code Analysis'
+            waitForQualityGate true
           }
         }
         stage('Test Reporting') {
