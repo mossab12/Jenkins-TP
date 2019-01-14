@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Test Reporting') {
           steps {
-            echo 'Test Reporting'
+            jacoco(buildOverBuild: true, changeBuildStatus: true)
           }
         }
       }
