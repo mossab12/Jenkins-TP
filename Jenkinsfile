@@ -25,7 +25,7 @@ pipeline {
         stage('Code Analysis') {
           steps {
             withSonarQubeEnv('My SonarQube Server') {
-              sh './gradlew --info sonarqube'
+              bat 'E:\Programs\Sonar Scanner\sonar-scanner-3.2.0.1227-windows\bin\sonar-scanner'
             }
 
           }
