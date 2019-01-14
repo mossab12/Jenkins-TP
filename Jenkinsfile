@@ -12,7 +12,7 @@ pipeline {
       steps {
         bat 'gradle build '
         bat 'gradle javadoc'
-        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle jar'
+        bat 'gradle jar'
         archiveArtifacts 'build/libs/*.jar'
         archiveArtifacts 'build/docs/javadoc/'
       }
