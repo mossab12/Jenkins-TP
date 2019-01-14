@@ -29,9 +29,8 @@ pipeline {
             withSonarQubeEnv('My SonarQube Server') {
               bat 'E:\\Programs\\Sonar Scanner\\sonar-scanner-3.2.0.1227-windows\\bin\\sonar-scanner'
             }
-            
-            waitForQualityGate true
 
+            waitForQualityGate true
           }
         }
         stage('Test Reporting') {
