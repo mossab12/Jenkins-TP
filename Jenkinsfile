@@ -53,7 +53,7 @@ pipeline {
     }
     stage('Slack Notification') {
       steps {
-        echo 'Slack Notification'
+        slackSend(message: 'Deployment done successfully !')
       }
     }
   }
