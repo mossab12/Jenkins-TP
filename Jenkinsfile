@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Build'
+        sh '''gradle build
+gradle javadoc
+gradle uploadArchives'''
       }
     }
     stage('Mail Notification') {
