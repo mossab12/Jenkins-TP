@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle build E:\\Programs\\gradle-4.10\\bin\\gradle javadoc E:\\Programs\\gradle-4.10\\bin\\gradle uploadArchives'
+        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle build '
+        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle javadoc'
+        bat 'E:\\Programs\\gradle-4.10\\bin\\gradle uploadArchives'
       }
     }
     stage('Mail Notification') {
