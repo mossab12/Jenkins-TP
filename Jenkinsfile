@@ -10,7 +10,7 @@ pipeline {
     }
     stage('Mail Notification') {
       steps {
-        echo 'Mail Notification'
+        mail(subject: 'Build Phase End', body: 'The build phase has been done successfully.', from: 'Cypher', charset: 'utf-8', to: 'fh_rebatchi@esi.dz')
       }
     }
     stage('Code Analysis') {
