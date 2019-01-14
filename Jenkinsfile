@@ -2,27 +2,29 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      post {
+        failure {
+          mail(subject: 'Build Phase End', body: 'There has been an error in the Build Phase.', from: 'Cypher', charset: 'utf-8', to: 'eng_rebatchi@outlook.fr')
+
+        }
+
+      }
       steps {
         bat 'E:\\Programs\\gradle-4.10\\bin\\gradle build '
         bat 'E:\\Programs\\gradle-4.10\\bin\\gradle javadoc'
         bat 'E:\\Programs\\gradle-4.10\\bin\\gradle uploadArchives'
       }
-      post {
-        failure {
-          mail (subject: 'Build Phase End', body: 'There has been an error in the Build Phase.', from: 'Cypher', charset: 'utf-8', to: 'eng_rebatchi@outlook.fr')
-        }
-      }
     }
     stage('Mail Notification') {
       steps {
-        mail (subject: 'Build Phase End', body: 'The build phase has been done successfully.', from: 'Cypher', charset: 'utf-8', to: 'eng_rebatchi@outlook.fr')
+        mail(subject: 'Build Phase End', body: 'The build phase has been done successfully.', from: 'Cypher', charset: 'utf-8', to: 'eng_rebatchi@outlook.fr')
       }
     }
     stage('Code Analysis') {
       parallel {
         stage('Code Analysis') {
           steps {
-            waitForQualityGate true
+            bat 'sonarqube -Dsonar.host.url=$SONAR_HOST_URL'
           }
         }
         stage('Test Reporting') {
